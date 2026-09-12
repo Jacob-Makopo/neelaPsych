@@ -108,8 +108,7 @@ function BookingPage() {
           {sent ? (
             <p className="mt-6 rounded-2xl border border-border bg-card p-7 text-muted-foreground">
               Your email should have opened with the request filled in — send it and we'll reply
-              with a confirmed time. You can also call{" "}
-              {CONTACTS.map((c) => `${c.name} on ${c.phone}`).join(" or ")}.
+              with a confirmed time. You can also call {CONTACTS.map((c) => c.phone).join(" or ")}.
             </p>
           ) : (
             <form onSubmit={onSubmit} noValidate className="mt-6 space-y-5">

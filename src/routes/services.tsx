@@ -55,7 +55,7 @@ function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Ways we can work together"
-        lead="In-room in Lynnwood Glen or securely online anywhere in South Africa, at your pace."
+        lead="In person in Lynnwood Glen or securely online anywhere in South Africa, at your pace."
       />
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div className="grid gap-6 sm:grid-cols-2">

@@ -33,7 +33,7 @@ function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Reach out when you're ready"
-        lead="Call, WhatsApp or email a short note about what you're looking for and we'll find a time that works."
+        lead="Call, WhatsApp or email us a short note about what you're looking for, and we'll find a time that works."
       />
       <section className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-2 md:py-20">
         <div className="space-y-6">

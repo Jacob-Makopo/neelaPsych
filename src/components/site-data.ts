@@ -124,7 +124,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How do I book a first appointment?",
-    a: "Use the booking page to send a request, WhatsApp us on +27 79 341 4933, or call +27 62 497 8206, 076 608 1912 or 072 433 5270. We reply with available times and confirm your slot.",
+    a: "Use the booking page to send a request, WhatsApp us on 072 123 4566, or call 076 608 1912, 072 433 5270 or +27 62 497 8206. We reply with available times and confirm your slot.",
   },
   {
     q: "How long is a therapy session?",

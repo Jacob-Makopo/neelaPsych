@@ -244,8 +244,8 @@ function Index() {
         <div className="mx-auto max-w-3xl px-6 py-24 text-center">
           <h2 className="text-3xl md:text-4xl">Reach out when you're ready</h2>
           <p className="mt-4 text-muted-foreground">
-            Call Khetsiwe on 076 608 1912, Lesedi on 072 433 5270 or {CONTACTS[3]?.phone}, WhatsApp
-            us on {CONTACTS[2]?.phone}, or send a booking request online.
+            Call {CONTACTS[0]?.phone}, {CONTACTS[1]?.phone} or {CONTACTS[3]?.phone}, WhatsApp us on{" "}
+            {CONTACTS[2]?.phone}, or send a booking request online.
           </p>
           <Link
             to="/booking"

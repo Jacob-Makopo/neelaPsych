@@ -40,7 +40,7 @@ function AboutPage() {
     <>
       <PageHero
         eyebrow="About"
-        title="Care that is warm, considered and unhurried"
+        title="Care that is warm, thoughtful and unhurried"
         lead="A private practice in Lynnwood Glen, Pretoria, offering psychological support to adults and young adults, in person and online."
       />
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-20">
