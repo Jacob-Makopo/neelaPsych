@@ -1,16 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, MapPin } from "lucide-react";
 import heroRoom from "@/assets/hero-room.jpg";
-import {
-  EMAIL,
-  ADDRESS,
-  SERVICES,
-  TEAM,
-  FOCUS_AREAS,
-  CONTACTS,
-  ALL_PHONE_NUMBERS,
-  FAQS,
-} from "@/components/site-data";
+import { ADDRESS, SERVICES, TEAM, FOCUS_AREAS, CONTACTS, FAQS } from "@/components/site-data";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -32,46 +23,6 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "MedicalBusiness",
-          name: "Neela Psychological Services",
-          slogan: "A space for compassionate, client-centred care",
-          email: EMAIL,
-          telephone: ALL_PHONE_NUMBERS,
-          contactPoint: CONTACTS.map((c) => ({
-            "@type": "ContactPoint",
-            contactType: c.whatsappOnly ? "WhatsApp bookings" : "bookings and enquiries",
-            telephone: c.tel,
-            name: c.name,
-            availableLanguage: ["English", "Afrikaans"],
-            areaServed: "ZA",
-          })),
-          openingHours: "Mo-Fr 08:00-17:00",
-          medicalSpecialty: "Psychiatric",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "72 Alcade Road",
-            addressLocality: "Lynnwood Glen, Pretoria",
-            addressRegion: "Gauteng",
-            addressCountry: "ZA",
-          },
-          areaServed: "Pretoria, Gauteng, South Africa",
-          priceRange: "R200–R1000",
-          employee: TEAM.map((t) => ({ "@type": "Person", name: t.name, jobTitle: t.role })),
-          makesOffer: SERVICES.map((s) => ({
-            "@type": "Offer",
-            name: s.title,
-            description: s.body,
-            priceCurrency: "ZAR",
-            price: s.inPerson.replace(/[^0-9]/g, ""),
-          })),
-        }),
-      },
-    ],
   }),
 });
 
@@ -135,6 +86,8 @@ function Index() {
               alt="Calm therapy consulting room with two soft armchairs and natural light"
               width={1600}
               height={1200}
+              fetchPriority="high"
+              decoding="async"
               className="rounded-[1.75rem] object-cover shadow-soft"
             />
           </div>
@@ -176,6 +129,9 @@ function Index() {
                 src={t.photo}
                 alt={`${t.name}, ${t.role} at Neela Psychological Services`}
                 loading="lazy"
+                decoding="async"
+                width={t.width}
+                height={t.height}
                 className="h-28 w-24 shrink-0 rounded-xl object-cover object-top"
               />
               <div>

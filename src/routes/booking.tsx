@@ -3,6 +3,7 @@ import { useState } from "react";
 import { CalendarDays, Check } from "lucide-react";
 import { PageHero } from "@/components/site-shell";
 import { EMAIL, SERVICES, CALENDAR_URL, CONTACTS } from "@/components/site-data";
+import { OG_IMAGE, breadcrumbSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/booking")({
   component: BookingPage,
@@ -21,9 +22,17 @@ export const Route = createFileRoute("/booking")({
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/booking" },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:alt", content: "The Neela Psychological Services therapy room" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/booking" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([{ name: "Booking", path: "/booking" }])),
+      },
+    ],
   }),
 });
 

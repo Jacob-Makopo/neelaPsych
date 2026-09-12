@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { PageHero } from "@/components/site-shell";
 import { EMAIL, ADDRESS, CONTACTS } from "@/components/site-data";
+import { OG_IMAGE, breadcrumbSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -20,9 +21,17 @@ export const Route = createFileRoute("/contact")({
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/contact" },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:alt", content: "The Neela Psychological Services therapy room" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([{ name: "Contact", path: "/contact" }])),
+      },
+    ],
   }),
 });
 

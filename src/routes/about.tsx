@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site-shell";
 import { TEAM } from "@/components/site-data";
+import { OG_IMAGE, breadcrumbSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -19,9 +20,17 @@ export const Route = createFileRoute("/about")({
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/about" },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:alt", content: "The Neela Psychological Services therapy room" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/about" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([{ name: "About", path: "/about" }])),
+      },
+    ],
   }),
 });
 
@@ -80,6 +89,9 @@ function AboutPage() {
                   src={t.photo}
                   alt={`${t.name}, ${t.role} at Neela Psychological Services`}
                   loading="lazy"
+                  decoding="async"
+                  width={t.width}
+                  height={t.height}
                   className="aspect-[3/4] w-full rounded-xl object-cover object-top"
                 />
                 <h3 className="mt-5 text-xl">{t.name}</h3>

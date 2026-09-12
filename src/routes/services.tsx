@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site-shell";
 import { SERVICES, FOCUS_AREAS } from "@/components/site-data";
+import { OG_IMAGE, breadcrumbSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
@@ -23,10 +24,16 @@ export const Route = createFileRoute("/services")({
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/services" },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:alt", content: "The Neela Psychological Services therapy room" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/services" }],
     scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([{ name: "Services", path: "/services" }])),
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({

@@ -73,3 +73,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://neelapsychologicalservices.co.za/sitemap.xml

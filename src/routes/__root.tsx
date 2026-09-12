@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader, SiteFooter } from "@/components/site-shell";
+import { SITE_NAME, OG_IMAGE, SHARE_META, medicalBusinessSchema, webSiteSchema } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -78,11 +79,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Neela Psychological Services" },
-      { name: "description", content: "A space for compassionate, client-centred care." },
-      { property: "og:site_name", content: "Neela Psychological Services" },
+      { title: SITE_NAME },
+      {
+        name: "description",
+        content: "A space for compassionate, client-centred care in Lynnwood Glen, Pretoria.",
+      },
+      { name: "theme-color", content: "#c76b8f" },
+      { property: "og:site_name", content: SITE_NAME },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: SHARE_META.ogLocale },
+      { property: "og:title", content: `${SITE_NAME} | Therapy in Pretoria` },
+      {
+        property: "og:description",
+        content: SHARE_META.twitterDescription,
+      },
+      { property: "og:image", content: SHARE_META.ogImage },
+      {
+        property: "og:image:alt",
+        content: "A calm therapy consulting room at Neela Psychological Services",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: SHARE_META.twitterTitle },
+      { name: "twitter:description", content: SHARE_META.twitterDescription },
+      { name: "twitter:image", content: SHARE_META.ogImage },
+      { name: "geo.region", content: "ZA-GP" },
+      { name: "geo.placename", content: "Lynnwood Glen, Pretoria" },
     ],
     links: [
       {
@@ -96,6 +117,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600&display=swap",
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "canonical", href: "/" },
+      { rel: "sitemap", type: "application/xml", href: "/sitemap.xml" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(webSiteSchema()),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(medicalBusinessSchema()),
+      },
     ],
   }),
   shellComponent: RootShell,
