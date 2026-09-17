@@ -40,7 +40,7 @@ export const medicalBusinessSchema = () => ({
     areaServed: "ZA",
   })),
   openingHours: "Mo-Fr 08:00-17:00",
-  medicalSpecialty: "Psychiatric",
+  medicalSpecialty: "Psychotherapy",
   address: ADDRESS_OBJECT,
   geo: {
     "@type": "GeoCoordinates",

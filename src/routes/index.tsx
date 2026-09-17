@@ -1,17 +1,35 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, MapPin } from "lucide-react";
 import heroRoom from "@/assets/hero-room.jpg";
-import { ADDRESS, SERVICES, TEAM, FOCUS_AREAS, CONTACTS, FAQS } from "@/components/site-data";
+import {
+  ADDRESS,
+  SESSION_FORMATS,
+  TEAM,
+  FOCUS_AREAS,
+  CONTACTS,
+  FAQS,
+} from "@/components/site-data";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Psychologists in Lynnwood Glen, Pretoria | Neela Psychological Services" },
+      {
+        title:
+          "Counselling Psychologists in Lynnwood Glen, Pretoria | Neela Psychological Services",
+      },
       {
         name: "description",
         content:
-          "Compassionate, client-centred therapy in Lynnwood Glen, Pretoria. Individual from R850, couples from R1 000, students from R650 and group sessions at R200 pp.",
+          "Compassionate, client-centred therapy in Lynnwood Glen, Pretoria, for adolescents, young adults, adults and couples, in person, online or in a small group.",
       },
       { property: "og:title", content: "Neela Psychological Services | Therapy in Pretoria" },
       {
@@ -66,14 +84,14 @@ function Index() {
                 Book a session <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-            <dl className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-border pt-8 text-sm">
+            <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-border pt-8 text-sm">
               {[
-                ["R850", "individual, in person"],
-                ["R700", "individual, online"],
-                ["R200", "per person in groups"],
+                ["Adolescents, adults & couples", "who we see"],
+                ["In person & online", "how we meet"],
+                ["Individual, couple & group", "ways to work"],
               ].map(([a, b]) => (
                 <div key={b}>
-                  <dt className="font-display text-xl text-primary">{a}</dt>
+                  <dt className="font-display text-base leading-snug text-primary">{a}</dt>
                   <dd className="mt-1 text-muted-foreground">{b}</dd>
                 </div>
               ))}
@@ -99,22 +117,41 @@ function Index() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="text-xs tracking-[0.24em] text-primary uppercase">Services</p>
-              <h2 className="mt-4 text-3xl md:text-4xl">Ways we can work together</h2>
+              <h2 className="mt-4 text-3xl md:text-4xl">What we do</h2>
             </div>
             <Link to="/services" className="text-sm text-primary underline underline-offset-8">
-              See all services and fees
+              See all services
             </Link>
           </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {SERVICES.map((s) => (
-              <article key={s.slug} className="rounded-2xl bg-card p-7 shadow-soft">
-                <h3 className="text-lg">{s.title}</h3>
-                <p className="mt-3 text-sm text-muted-foreground">{s.body}</p>
-                <p className="mt-6 text-sm text-primary">
-                  {s.inPerson} in person · {s.online} online
-                </p>
-              </article>
-            ))}
+          <div className="mt-12 overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="px-6 py-4 text-xs tracking-[0.14em] uppercase">
+                    Format
+                  </TableHead>
+                  <TableHead className="px-6 py-4 text-xs tracking-[0.14em] uppercase">
+                    What it involves
+                  </TableHead>
+                  <TableHead className="px-6 py-4 text-xs tracking-[0.14em] whitespace-nowrap uppercase">
+                    Length
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {SESSION_FORMATS.map((f) => (
+                  <TableRow key={f.name}>
+                    <TableCell className="px-6 py-5 font-display text-lg text-primary">
+                      {f.name}
+                    </TableCell>
+                    <TableCell className="px-6 py-5 text-muted-foreground">{f.detail}</TableCell>
+                    <TableCell className="px-6 py-5 whitespace-nowrap text-muted-foreground">
+                      {f.length}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         </div>
       </section>
@@ -137,7 +174,11 @@ function Index() {
               <div>
                 <h3 className="text-xl">{t.name}</h3>
                 <p className="text-sm text-primary">{t.role}</p>
-                <p className="mt-3 text-sm text-muted-foreground">{t.bio}</p>
+                {t.bio.map((para) => (
+                  <p key={para} className="mt-3 text-sm text-muted-foreground">
+                    {para}
+                  </p>
+                ))}
               </div>
             </article>
           ))}
@@ -173,19 +214,21 @@ function Index() {
           <p className="text-xs tracking-[0.24em] text-primary uppercase">Common questions</p>
           <h2 className="mt-4 text-3xl md:text-4xl">Before you book</h2>
           <div className="mt-10 divide-y divide-border rounded-2xl border border-border">
-            {FAQS.slice(0, 5).map((f) => (
-              <details key={f.q} className="group px-5 py-5 sm:px-7">
-                <summary className="cursor-pointer list-none marker:hidden">
-                  <span className="flex items-start justify-between gap-4">
-                    <h3 className="font-display text-base sm:text-lg">{f.q}</h3>
-                    <span aria-hidden className="mt-1 shrink-0 text-primary group-open:rotate-45">
-                      +
+            {FAQS.filter((f) => !/cost|price|fee/i.test(f.q))
+              .slice(0, 5)
+              .map((f) => (
+                <details key={f.q} className="group px-5 py-5 sm:px-7">
+                  <summary className="cursor-pointer list-none marker:hidden">
+                    <span className="flex items-start justify-between gap-4">
+                      <h3 className="font-display text-base sm:text-lg">{f.q}</h3>
+                      <span aria-hidden className="mt-1 shrink-0 text-primary group-open:rotate-45">
+                        +
+                      </span>
                     </span>
-                  </span>
-                </summary>
-                <p className="mt-3 text-sm text-muted-foreground sm:text-base">{f.a}</p>
-              </details>
-            ))}
+                  </summary>
+                  <p className="mt-3 text-sm text-muted-foreground sm:text-base">{f.a}</p>
+                </details>
+              ))}
           </div>
           <Link
             to="/faq"

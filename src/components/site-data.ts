@@ -9,7 +9,7 @@ export const CONTACTS: {
   tel: string;
   whatsappOnly?: boolean;
 }[] = [
-  { name: "Khetsiwe", phone: "076 608 1912", tel: "+27766081912" },
+  { name: "Khetsiwe Nkosi", phone: "076 608 1912", tel: "+27766081912" },
   { name: "Lesedi", phone: "072 433 5270", tel: "+27724335270" },
   { name: "WhatsApp", phone: "072 123 4566", tel: "+27721234566", whatsappOnly: true },
   { name: "Reception", phone: "+27 62 497 8206", tel: "+27624978206" },
@@ -20,26 +20,60 @@ export const ALL_PHONE_NUMBERS = CONTACTS.map((c) => c.tel);
 /** Replace with the practice's public Google Calendar appointment link. */
 export const CALENDAR_URL = "https://calendar.google.com/calendar/u/0/r";
 
-export const TEAM = [
+export const TEAM: {
+  name: string;
+  role: string;
+  photo: string;
+  width: number;
+  height: number;
+  phone: string;
+  tel: string;
+  bio: string[];
+}[] = [
   {
-    name: "Khetsiwe",
-    role: "Psychologist",
+    name: "Khetsiwe Nkosi",
+    role: "Counselling Psychologist",
     photo: khetsiwePhoto,
     width: 828,
     height: 1199,
     phone: "076 608 1912",
     tel: "+27766081912",
-    bio: "Works with anxiety, burnout, trauma and grief, with a warm, steady style that makes hard conversations feel possible.",
+    bio: [
+      "A Counselling Psychologist with experience across community, university and clinical settings. Khetsiwe works with adolescents, young adults, adults, professionals and couples experiencing a range of concerns, including emotional difficulties, grief and loss, trauma, relationship challenges and significant life transitions.",
+      "Her approach to therapy is integrative and client-centred. She believes there is no single way of understanding or supporting every person, and therefore considers each client within the context of their individual experiences, relationships, culture and broader life circumstances.",
+    ],
   },
   {
     name: "Lesedi",
-    role: "Psychologist",
+    role: "Counselling Psychologist",
     photo: lesediPhoto,
     width: 1280,
     height: 1280,
     phone: "072 433 5270",
     tel: "+27724335270",
-    bio: "Supports young adults, couples and clients navigating change, with a practical, collaborative approach.",
+    bio: [
+      "Lesedi works with adolescents, young adults, adults and couples, supporting clients through a range of concerns, including anxiety, depression, adjustment issues, grief, trauma, relationship difficulties and career-related concerns.",
+      "She takes a client-centred, integrative approach to therapy, drawing on evidence-based interventions to support clients in understanding their experiences, navigating challenges and making meaningful changes.",
+    ],
+  },
+];
+
+/** How sessions are offered, shown on the home page without fees. */
+export const SESSION_FORMATS = [
+  {
+    name: "In person",
+    detail: "Individual and couple sessions at our rooms in Lynnwood Glen, Pretoria.",
+    length: "50–60 min",
+  },
+  {
+    name: "Online",
+    detail: "Secure video sessions, wherever you are in South Africa.",
+    length: "50–60 min",
+  },
+  {
+    name: "Group sessions",
+    detail: "Small facilitated groups on emotional regulation, grief and adjustment.",
+    length: "90 min",
   },
 ];
 

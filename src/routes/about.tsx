@@ -11,12 +11,13 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Neela Psychological Services is a private psychology practice in Lynnwood Glen, Pretoria, offering warm, evidence-based, client-centred care for adults and young adults.",
+          "Neela Psychological Services is a private counselling psychology practice in Lynnwood Glen, Pretoria, offering warm, evidence-based, client-centred care for adolescents, young adults, adults and couples.",
       },
       { property: "og:title", content: "About Neela Psychological Services" },
       {
         property: "og:description",
-        content: "A warm, client-centred psychology practice in Lynnwood Glen, Pretoria.",
+        content:
+          "A warm, client-centred counselling psychology practice in Lynnwood Glen, Pretoria.",
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/about" },
@@ -50,7 +51,7 @@ function AboutPage() {
       <PageHero
         eyebrow="About"
         title="Care that is warm, thoughtful and unhurried"
-        lead="A private practice in Lynnwood Glen, Pretoria, offering psychological support to adults and young adults, in person and online."
+        lead="A private counselling psychology practice in Lynnwood Glen, Pretoria, offering support to adolescents, young adults, adults and couples, in person and online."
       />
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div className="grid gap-10 md:grid-cols-2">
@@ -96,7 +97,11 @@ function AboutPage() {
                 />
                 <h3 className="mt-5 text-xl">{t.name}</h3>
                 <p className="text-sm text-primary">{t.role}</p>
-                <p className="mt-3 text-sm text-muted-foreground">{t.bio}</p>
+                {t.bio.map((para) => (
+                  <p key={para} className="mt-3 text-sm text-muted-foreground">
+                    {para}
+                  </p>
+                ))}
               </article>
             ))}
           </div>
