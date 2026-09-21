@@ -149,6 +149,10 @@ export const GROUPS = [
 
 export const FAQS: { q: string; a: string }[] = [
   {
+    q: "What is Neela Psychological Services?",
+    a: "Neela Psychological Services is a private counselling psychology practice at 72 Alcade Road, Lynnwood Glen, Pretoria. Our psychologists, Khetsiwe Nkosi and Lesedi, offer individual, couple, student and group therapy in person or online.",
+  },
+  {
     q: "Where is Neela Psychological Services based?",
     a: "We are at 72 Alcade Road, Lynnwood Glen, Pretoria, Gauteng, with easy access from Lynnwood, Menlo Park, Faerie Glen and the wider Pretoria east area. Online sessions are available anywhere in South Africa.",
   },
@@ -183,6 +187,18 @@ export const FAQS: { q: string; a: string }[] = [
   {
     q: "What issues do you help with?",
     a: "Anxiety and panic, depression and low mood, burnout and work stress, trauma, grief and bereavement, relationship difficulties, self-esteem and identity, and adjustment to life change.",
+  },
+  {
+    q: "Do you see children or teenagers?",
+    a: "Yes. We work with adolescents and young adults, including students. We do not currently offer play- or child-focused therapy for younger children; sessions for younger clients are agreed individually with our psychologists.",
+  },
+  {
+    q: "What is the difference between a counselling psychologist and a clinical psychologist?",
+    a: "Both are registered psychological practitioners in South Africa. Counselling psychologists, like the team at Neela, focus on everyday life challenges, adjustment, relationships and wellbeing, usually in shorter-term, goal-focused work. Clinical psychologists more often work with diagnosable, severe or enduring mental health conditions.",
+  },
+  {
+    q: "Do you help with trauma and grief?",
+    a: "Yes. Trauma, grief and loss are core focus areas at Neela. Our psychologists use integrative, evidence-based approaches such as trauma-informed therapy and cognitive behavioural therapy, paced to what feels safe for you.",
   },
   {
     q: "Do you offer group therapy, and how does it work?",

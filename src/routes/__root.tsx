@@ -12,7 +12,14 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader, SiteFooter } from "@/components/site-shell";
-import { SITE_NAME, OG_IMAGE, SHARE_META, medicalBusinessSchema, webSiteSchema } from "@/lib/seo";
+import {
+  SITE_NAME,
+  OG_IMAGE,
+  SHARE_META,
+  medicalBusinessSchema,
+  webSiteSchema,
+  absoluteUrl,
+} from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -79,6 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
       { title: SITE_NAME },
       {
         name: "description",
@@ -117,7 +125,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600&display=swap",
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "canonical", href: "/" },
+      { rel: "canonical", href: absoluteUrl("/") },
       { rel: "sitemap", type: "application/xml", href: "/sitemap.xml" },
     ],
     scripts: [

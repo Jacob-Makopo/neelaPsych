@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { PageHero } from "@/components/site-shell";
 import { EMAIL, ADDRESS, CONTACTS } from "@/components/site-data";
-import { OG_IMAGE, breadcrumbSchema } from "@/lib/seo";
+import { OG_IMAGE, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Book a therapy session at 72 Alcade Road, Lynnwood Glen, Pretoria. Call Khetsiwe on 076 608 1912 or Lesedi on 072 433 5270, or email us.",
+          "Book a therapy session in Lynnwood Glen, Pretoria, by phone, WhatsApp or a booking request online.",
       },
       { property: "og:title", content: "Contact Neela Psychological Services" },
       {
@@ -20,12 +20,12 @@ export const Route = createFileRoute("/contact")({
         content: "72 Alcade Road, Lynnwood Glen, Pretoria. Call or email to book a session.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "/contact" },
+      { property: "og:url", content: absoluteUrl("/contact") },
       { property: "og:image", content: OG_IMAGE },
       { property: "og:image:alt", content: "The Neela Psychological Services therapy room" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/contact" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/contact") }],
     scripts: [
       {
         type: "application/ld+json",

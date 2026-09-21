@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site-shell";
 import { FAQS, EMAIL, ADDRESS, CONTACTS } from "@/components/site-data";
-import { OG_IMAGE, breadcrumbSchema } from "@/lib/seo";
+import { OG_IMAGE, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/faq")({
   component: FaqPage,
@@ -23,12 +23,12 @@ export const Route = createFileRoute("/faq")({
           "Fees, booking, medical aid, online sessions, group therapy and confidentiality — answered plainly.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "/faq" },
+      { property: "og:url", content: absoluteUrl("/faq") },
       { property: "og:image", content: OG_IMAGE },
       { property: "og:image:alt", content: "The Neela Psychological Services therapy room" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/faq" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/faq") }],
     scripts: [
       {
         type: "application/ld+json",

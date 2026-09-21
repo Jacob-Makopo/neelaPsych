@@ -7,10 +7,14 @@ import {
   SERVICES,
 } from "@/components/site-data";
 
-/** UPDATE: set this to the live production domain once deployed. */
-export const SITE_URL = "https://neelapsychologicalservices.co.za";
+export const SITE_URL = "https://neelapsychology.co.za";
 export const SITE_NAME = "Neela Psychological Services";
 export const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
+
+export const absoluteUrl = (path: string) =>
+  path.startsWith("http")
+    ? path
+    : `${SITE_URL}${path === "/" ? path : `/${path.replace(/^\/+/, "")}`}`;
 
 const ADDRESS_OBJECT = {
   "@type": "PostalAddress",
@@ -35,11 +39,17 @@ export const medicalBusinessSchema = () => ({
     "@type": "ContactPoint",
     contactType: c.whatsappOnly ? "WhatsApp bookings" : "bookings and enquiries",
     telephone: c.tel,
-    name: c.name,
     availableLanguage: ["English", "Afrikaans"],
     areaServed: "ZA",
   })),
-  openingHours: "Mo-Fr 08:00-17:00",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "17:00",
+    },
+  ],
   medicalSpecialty: "Psychotherapy",
   address: ADDRESS_OBJECT,
   geo: {
@@ -82,12 +92,12 @@ export const breadcrumbSchema = (items: { name: string; path: string }[]) => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "/" },
+    { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
     ...items.map((it, i) => ({
       "@type": "ListItem",
       position: i + 2,
       name: it.name,
-      item: it.path,
+      item: absoluteUrl(it.path),
     })),
   ],
 });

@@ -17,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { absoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -37,10 +38,10 @@ export const Route = createFileRoute("/")({
         content: "A space for compassionate, client-centred care in Lynnwood Glen, Pretoria.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: absoluteUrl("/") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/") }],
   }),
 });
 
@@ -70,7 +71,7 @@ function Index() {
               <span className="min-w-0 break-words">{ADDRESS}</span>
             </p>
             <h1 className="mt-6 text-4xl leading-[1.08] md:text-6xl">
-              A space for compassionate, client-centred care
+              Neela Psychological Services — a space for compassionate, client-centred care
             </h1>
             <p className="mt-6 max-w-lg text-lg text-muted-foreground">
               Therapy that starts with listening. Whether you come on your own, with a partner, or

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Check } from "lucide-react";
 import { PageHero } from "@/components/site-shell";
 import { EMAIL, SERVICES, CONTACTS, ADDRESS } from "@/components/site-data";
-import { OG_IMAGE, breadcrumbSchema } from "@/lib/seo";
+import { OG_IMAGE, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/booking")({
   component: BookingPage,
@@ -21,12 +21,12 @@ export const Route = createFileRoute("/booking")({
         content: "Request an appointment online with your preferred times.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "/booking" },
+      { property: "og:url", content: absoluteUrl("/booking") },
       { property: "og:image", content: OG_IMAGE },
       { property: "og:image:alt", content: "The Neela Psychological Services therapy room" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/booking" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/booking") }],
     scripts: [
       {
         type: "application/ld+json",
