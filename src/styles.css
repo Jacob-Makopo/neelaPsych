@@ -104,7 +104,6 @@
   --shadow-soft: 0 18px 50px -30px oklch(0.4 0.05 330 / 0.5);
 }
 
-
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
@@ -155,7 +154,9 @@
   body {
     font-family: var(--font-body);
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: var(--font-display);
     font-weight: 500;
     letter-spacing: -0.01em;

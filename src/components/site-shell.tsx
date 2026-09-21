@@ -35,7 +35,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <Link
-            to="/contact"
+            to="/booking"
             className="hidden rounded-full bg-primary px-5 py-2.5 text-sm text-primary-foreground shadow-soft transition-opacity hover:opacity-90 sm:inline-block"
           >
             Book a session

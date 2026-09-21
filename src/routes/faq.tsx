@@ -96,7 +96,7 @@ function FaqPage() {
           <ul className="mt-3 space-y-1">
             {CONTACTS.map((c) => (
               <li key={c.tel}>
-                {c.name}: {c.phone}
+                {c.phone}
                 {c.whatsappOnly ? " (WhatsApp only)" : ""}
               </li>
             ))}
