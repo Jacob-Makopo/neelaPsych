@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { PageHero } from "@/components/site-shell";
-import { EMAIL, SERVICES, CONTACTS } from "@/components/site-data";
+import { EMAIL, SERVICES, CONTACTS, ADDRESS } from "@/components/site-data";
 import { OG_IMAGE, breadcrumbSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/booking")({
@@ -76,7 +76,7 @@ function BookingPage() {
       next.email = "Please enter a valid email address.";
     if (!phone || phone.length > 30) next.phone = "Please enter a contact number.";
     if (!pref1 && !pref2)
-      next.preferred = "Please choose at least one preferred time (Option 1 or Option 2).";
+      next.preferred = "Please choose at least one preferred time (first or second choice).";
     if (!fd.get("terms")) next.terms = "Please accept the booking terms.";
     setErrors(next);
     if (Object.keys(next).length) return;
@@ -90,8 +90,8 @@ function BookingPage() {
       `Phone: ${phone}`,
       `Service: ${service}`,
       `Format: ${format}`,
-      `Preferred time (Option 1): ${pref1 ? pretty(pref1) : "Not provided"}`,
-      `Preferred time (Option 2): ${pref2 ? pretty(pref2) : "Not provided"}`,
+      `Preferred time (first choice): ${pref1 ? pretty(pref1) : "Not provided"}`,
+      `Preferred time (second choice): ${pref2 ? pretty(pref2) : "Not provided"}`,
       "",
       notes,
       "",
@@ -124,22 +124,25 @@ function BookingPage() {
               with a confirmed time. You can also call {CONTACTS.map((c) => c.phone).join(" or ")}.
             </p>
           ) : (
-            <form onSubmit={onSubmit} noValidate className="mt-6 space-y-5">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="block text-sm">
-                  Full name
-                  <input name="name" maxLength={100} className={field} />
-                  {errors.name && (
-                    <span className="mt-1 block text-xs text-destructive">{errors.name}</span>
-                  )}
-                </label>
-                <label className="block text-sm">
-                  Email
-                  <input name="email" type="email" maxLength={255} className={field} />
-                  {errors.email && (
-                    <span className="mt-1 block text-xs text-destructive">{errors.email}</span>
-                  )}
-                </label>
+            <form onSubmit={onSubmit} noValidate className="mt-6 space-y-8">
+              <fieldset className="space-y-5">
+                <legend className="font-display text-lg">Your details</legend>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <label className="block text-sm">
+                    Full name
+                    <input name="name" maxLength={100} className={field} />
+                    {errors.name && (
+                      <span className="mt-1 block text-xs text-destructive">{errors.name}</span>
+                    )}
+                  </label>
+                  <label className="block text-sm">
+                    Email
+                    <input name="email" type="email" maxLength={255} className={field} />
+                    {errors.email && (
+                      <span className="mt-1 block text-xs text-destructive">{errors.email}</span>
+                    )}
+                  </label>
+                </div>
                 <label className="block text-sm">
                   Phone
                   <input name="phone" maxLength={30} className={field} />
@@ -147,39 +150,62 @@ function BookingPage() {
                     <span className="mt-1 block text-xs text-destructive">{errors.phone}</span>
                   )}
                 </label>
+              </fieldset>
+
+              <fieldset className="space-y-5">
+                <legend className="font-display text-lg">Your session</legend>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <label className="block text-sm">
+                    Session type
+                    <select
+                      name="service"
+                      className={field}
+                      defaultValue="Standard individual session"
+                    >
+                      {SERVICES.map((s) => (
+                        <option key={s.slug}>{s.title}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="block text-sm">
+                    Format
+                    <select name="format" className={field}>
+                      <option>In person (Lynnwood Glen)</option>
+                      <option>Online</option>
+                    </select>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset className="space-y-5">
+                <legend className="font-display text-lg">Preferred times</legend>
                 <div>
-                  <span className="mt-2 block text-sm">Preferred time — Option 1</span>
-                  <input name="pref1" type="datetime-local" className={field} />
+                  <label htmlFor="pref1" className="block text-sm">
+                    First choice
+                  </label>
+                  <input id="pref1" name="pref1" type="datetime-local" className={field} />
                 </div>
                 <div>
-                  <span className="mt-2 block text-sm">Preferred time — Option 2</span>
-                  <input name="pref2" type="datetime-local" className={field} />
+                  <label htmlFor="pref2" className="block text-sm">
+                    Second choice
+                  </label>
+                  <input id="pref2" name="pref2" type="datetime-local" className={field} />
                 </div>
-                <label className="block text-sm">
-                  Session type
-                  <select
-                    name="service"
-                    className={field}
-                    defaultValue="Standard individual session"
-                  >
-                    {SERVICES.map((s) => (
-                      <option key={s.slug}>{s.title}</option>
-                    ))}
-                  </select>
-                </label>
-                <label className="block text-sm">
-                  Format
-                  <select name="format" className={field}>
-                    <option>In person (Lynnwood Glen)</option>
-                    <option>Online</option>
-                  </select>
-                </label>
-              </div>
-              {errors.preferred && <p className="text-xs text-destructive">{errors.preferred}</p>}
+                <div className="space-y-1">
+                  <p className="text-xs text-muted-foreground">
+                    We'll match the closest of these times. You only need to give one.
+                  </p>
+                  {errors.preferred && (
+                    <p className="text-xs text-destructive">{errors.preferred}</p>
+                  )}
+                </div>
+              </fieldset>
+
               <label className="block text-sm">
                 Anything you'd like us to know (optional)
                 <textarea name="notes" rows={4} maxLength={1000} className={field} />
               </label>
+
               <label className="flex items-start gap-3 text-sm text-muted-foreground">
                 <input type="checkbox" name="terms" className="mt-1 h-4 w-4 accent-current" />
                 <span>I have read and accept the booking terms below.</span>
@@ -187,7 +213,7 @@ function BookingPage() {
               {errors.terms && <p className="text-xs text-destructive">{errors.terms}</p>}
               <button
                 type="submit"
-                className="rounded-full bg-primary px-7 py-3.5 text-sm text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
+                className="w-full rounded-full bg-primary px-7 py-3.5 text-sm text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
               >
                 Send booking request
               </button>
@@ -214,6 +240,26 @@ function BookingPage() {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="mt-8 border-t border-border pt-6">
+            <p className="font-display text-base">Find us</p>
+            <div className="mt-4 overflow-hidden rounded-2xl border border-border">
+              <iframe
+                src="https://www.google.com/maps?q=72+Alcade+Road,+Lynnwood+Glen,+Pretoria&output=embed"
+                title="Map showing Neela Psychological Services at 72 Alcade Road, Lynnwood Glen, Pretoria"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="block h-60 w-full border-0"
+              />
+            </div>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=72%20Alcade%20Road%2C%20Lynnwood%20Glen%2C%20Pretoria"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-block text-muted-foreground underline underline-offset-4 hover:text-primary"
+            >
+              {ADDRESS}
+            </a>
           </div>
         </aside>
       </section>
