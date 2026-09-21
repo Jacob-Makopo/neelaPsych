@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { CalendarDays, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { PageHero } from "@/components/site-shell";
-import { EMAIL, SERVICES, CALENDAR_URL, CONTACTS } from "@/components/site-data";
+import { EMAIL, SERVICES, CONTACTS } from "@/components/site-data";
 import { OG_IMAGE, breadcrumbSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/booking")({
@@ -13,12 +13,12 @@ export const Route = createFileRoute("/booking")({
       {
         name: "description",
         content:
-          "Request a therapy appointment in Lynnwood Glen, Pretoria, or book straight into our calendar. Booking terms, cancellation policy and fees explained.",
+          "Request a therapy appointment in Lynnwood Glen, Pretoria, with your preferred times. Booking terms, cancellation policy and fees explained.",
       },
       { property: "og:title", content: "Book a therapy session in Pretoria" },
       {
         property: "og:description",
-        content: "Request an appointment online or book directly into our calendar.",
+        content: "Request an appointment online with your preferred times.",
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/booking" },
@@ -36,7 +36,13 @@ export const Route = createFileRoute("/booking")({
   }),
 });
 
-type Errs = { name?: string; email?: string; phone?: string; terms?: string };
+type Errs = {
+  name?: string;
+  email?: string;
+  phone?: string;
+  terms?: string;
+  preferred?: string;
+};
 
 const TERMS = [
   "Sessions are 50–60 minutes (couples 60 minutes, groups 90 minutes) and start at the booked time.",
@@ -60,7 +66,8 @@ function BookingPage() {
     const phone = get("phone");
     const service = get("service");
     const format = get("format");
-    const preferred = get("preferred");
+    const pref1 = get("pref1");
+    const pref2 = get("pref2");
     const notes = get("notes").slice(0, 1000);
 
     const next: Errs = {};
@@ -68,9 +75,14 @@ function BookingPage() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 255)
       next.email = "Please enter a valid email address.";
     if (!phone || phone.length > 30) next.phone = "Please enter a contact number.";
+    if (!pref1 && !pref2)
+      next.preferred = "Please choose at least one preferred time (Option 1 or Option 2).";
     if (!fd.get("terms")) next.terms = "Please accept the booking terms.";
     setErrors(next);
     if (Object.keys(next).length) return;
+
+    const pretty = (value: string) =>
+      new Date(value).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 
     const body = [
       `Name: ${name}`,
@@ -78,7 +90,8 @@ function BookingPage() {
       `Phone: ${phone}`,
       `Service: ${service}`,
       `Format: ${format}`,
-      `Preferred day/time: ${preferred}`,
+      `Preferred time (Option 1): ${pref1 ? pretty(pref1) : "Not provided"}`,
+      `Preferred time (Option 2): ${pref2 ? pretty(pref2) : "Not provided"}`,
       "",
       notes,
       "",
@@ -99,21 +112,12 @@ function BookingPage() {
       <PageHero
         eyebrow="Booking"
         title="Book a session"
-        lead="Choose a time in our calendar, or send a booking request and we'll come back to you with the next available slot."
+        lead="Send a booking request with your preferred times and we'll come back to you with the next available slot."
       />
 
       <section className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.05fr_0.95fr] md:py-20">
         <div>
-          <a
-            href={CALENDAR_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
-          >
-            <CalendarDays className="h-4 w-4" /> Book in our Google Calendar
-          </a>
-
-          <h2 className="mt-12 text-2xl">Or send a booking request</h2>
+          <h2 className="text-2xl">Send a booking request</h2>
           {sent ? (
             <p className="mt-6 rounded-2xl border border-border bg-card p-7 text-muted-foreground">
               Your email should have opened with the request filled in — send it and we'll reply
@@ -143,15 +147,14 @@ function BookingPage() {
                     <span className="mt-1 block text-xs text-destructive">{errors.phone}</span>
                   )}
                 </label>
-                <label className="block text-sm">
-                  Preferred day & time
-                  <input
-                    name="preferred"
-                    maxLength={100}
-                    placeholder="e.g. Tuesday mornings"
-                    className={field}
-                  />
-                </label>
+                <div>
+                  <span className="mt-2 block text-sm">Preferred time — Option 1</span>
+                  <input name="pref1" type="datetime-local" className={field} />
+                </div>
+                <div>
+                  <span className="mt-2 block text-sm">Preferred time — Option 2</span>
+                  <input name="pref2" type="datetime-local" className={field} />
+                </div>
                 <label className="block text-sm">
                   Session type
                   <select
@@ -172,6 +175,7 @@ function BookingPage() {
                   </select>
                 </label>
               </div>
+              {errors.preferred && <p className="text-xs text-destructive">{errors.preferred}</p>}
               <label className="block text-sm">
                 Anything you'd like us to know (optional)
                 <textarea name="notes" rows={4} maxLength={1000} className={field} />
