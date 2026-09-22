@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Compassionate, client-centred therapy in Lynnwood Glen, Pretoria, for adolescents, young adults, adults and couples, in person, online or in a small group.",
+          "Compassionate therapy in Lynnwood Glen, Pretoria with counselling psychologists Khetsiwe Nkosi and Lesedi, for adolescents, young adults, adults and couples, in person, online or in a small group.",
       },
       { property: "og:title", content: "Neela Psychological Services | Therapy in Pretoria" },
       {
@@ -184,7 +184,15 @@ function Index() {
                 className="h-28 w-24 shrink-0 rounded-xl object-cover object-top"
               />
               <div>
-                <h3 className="text-xl">{t.name}</h3>
+                <h3 className="text-xl">
+                  <Link
+                    to="/about"
+                    hash={t.name.toLowerCase().replace(/\s+/g, "-")}
+                    className="decoration-primary underline-offset-8 hover:underline"
+                  >
+                    {t.name}
+                  </Link>
+                </h3>
                 <p className="text-sm text-primary">{t.role}</p>
                 {t.bio.map((para) => (
                   <p key={para} className="mt-3 text-sm text-muted-foreground">

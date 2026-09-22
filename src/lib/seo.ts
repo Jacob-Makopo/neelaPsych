@@ -136,30 +136,38 @@ export const webSiteSchema = () => ({
 });
 
 export const personSchema = () =>
-  TEAM.map((t) => ({
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: t.name,
-    jobTitle: t.role,
-    worksFor: { "@id": `${SITE_URL}/#organization` },
-    email: EMAIL,
-    telephone: t.tel,
-    knowsAbout: [
-      "Counselling psychology",
-      "Psychotherapy",
-      "Trauma therapy",
-      "Grief and loss",
-      "Relationship counselling",
-      "Anxiety and depression",
-      "Adolescent and young adult mental health",
-      "Life transitions",
-    ],
-    workLocation: {
-      "@type": "Place",
-      sameAs: `${SITE_URL}/about`,
-      address: ADDRESS_OBJECT,
-    },
-  }));
+  TEAM.map((t) => {
+    const anchor = t.name.toLowerCase().replace(/\s+/g, "-");
+    return {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": `${SITE_URL}/about#${anchor}`,
+      name: t.name,
+      jobTitle: t.role,
+      url: `${SITE_URL}/about#${anchor}`,
+      image: t.photo.startsWith("data:")
+        ? t.photo
+        : `${SITE_URL}${t.photo.startsWith("/") ? "" : "/"}${t.photo}`,
+      worksFor: { "@id": `${SITE_URL}/#organization` },
+      email: EMAIL,
+      telephone: t.tel,
+      knowsAbout: [
+        "Counselling psychology",
+        "Psychotherapy",
+        "Trauma therapy",
+        "Grief and loss",
+        "Relationship counselling",
+        "Anxiety and depression",
+        "Adolescent and young adult mental health",
+        "Life transitions",
+      ],
+      workLocation: {
+        "@type": "Place",
+        sameAs: `${SITE_URL}/about#${anchor}`,
+        address: ADDRESS_OBJECT,
+      },
+    };
+  });
 
 export const faqPageSchema = (faqs: { q: string; a: string }[] = FAQS) => ({
   "@context": "https://schema.org",

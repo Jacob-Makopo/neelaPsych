@@ -89,7 +89,11 @@ function AboutPage() {
           <h2 className="text-3xl">Meet the team</h2>
           <div className="mt-10 grid gap-8 sm:grid-cols-2">
             {TEAM.map((t) => (
-              <article key={t.name} className="rounded-2xl border border-border bg-card p-6">
+              <article
+                key={t.name}
+                id={t.name.toLowerCase().replace(/\s+/g, "-")}
+                className="rounded-2xl border border-border bg-card p-6 scroll-mt-24"
+              >
                 <img
                   src={t.photo}
                   alt={`${t.name}, ${t.role} at Neela Psychological Services`}
