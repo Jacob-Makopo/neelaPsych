@@ -1,15 +1,45 @@
-import {
-  EMAIL,
-  ADDRESS,
-  CONTACTS,
-  ALL_PHONE_NUMBERS,
-  TEAM,
-  SERVICES,
-} from "@/components/site-data";
+import { EMAIL, CONTACTS, ALL_PHONE_NUMBERS, TEAM, SERVICES, FAQS } from "@/components/site-data";
 
 export const SITE_URL = "https://neelapsychology.co.za";
 export const SITE_NAME = "Neela Psychological Services";
 export const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
+
+export const SEO_ALIASES = [
+  "neela",
+  "niela psychology",
+  "niela psychological services",
+  "neela psych",
+  "neela psychology",
+  "neela psychological services",
+  "neela therapy",
+  "neela therapist",
+  "neela counselling",
+  "neela psychologists",
+  "psychologist pretoria",
+  "psychologist lynnwood glen",
+  "therapist lynnwood glen",
+  "counselling psychologist pretoria",
+  "therapy pretoria",
+  "counselling psychology lynnwood glen",
+  "psychology practice pretoria",
+  "couples therapy pretoria",
+  "online therapy south africa",
+  "student therapy pretoria",
+];
+
+const KEYWORDS = [
+  ...SEO_ALIASES,
+  "anxiety therapy pretoria",
+  "depression therapy pretoria",
+  "trauma therapy lynnwood glen",
+  "grief counselling pretoria",
+  "couples counselling lynnwood glen",
+  "counselling psychologist south africa",
+  "therapy near me mpumalanga",
+  "therapy near me cullinan",
+];
+
+export const SEO_KEYWORDS = KEYWORDS;
 
 export const absoluteUrl = (path: string) =>
   path.startsWith("http")
@@ -29,6 +59,7 @@ export const medicalBusinessSchema = () => ({
   "@type": "MedicalBusiness",
   "@id": `${SITE_URL}/#organization`,
   name: SITE_NAME,
+  alternateName: ["Neela Psychology", "Neela Psych", "Neela Counselling"],
   slogan: "A space for compassionate, client-centred care",
   url: SITE_URL,
   logo: OG_IMAGE,
@@ -51,6 +82,21 @@ export const medicalBusinessSchema = () => ({
     },
   ],
   medicalSpecialty: "Psychotherapy",
+  knowsAbout: [
+    "Counselling psychology",
+    "Psychotherapy",
+    "Anxiety treatment",
+    "Depression treatment",
+    "Trauma therapy",
+    "Grief and bereavement counselling",
+    "Relationship counselling",
+    "Couples therapy",
+    "Burnout and work stress",
+    "Student mental health",
+    "Online therapy",
+    "Group therapy",
+  ],
+  keywords: SEO_KEYWORDS,
   address: ADDRESS_OBJECT,
   geo: {
     "@type": "GeoCoordinates",
@@ -83,9 +129,49 @@ export const webSiteSchema = () => ({
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   name: SITE_NAME,
+  alternateName: SEO_ALIASES,
   url: SITE_URL,
   publisher: { "@id": `${SITE_URL}/#organization` },
   inLanguage: "en-ZA",
+});
+
+export const personSchema = () =>
+  TEAM.map((t) => ({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: t.name,
+    jobTitle: t.role,
+    worksFor: { "@id": `${SITE_URL}/#organization` },
+    email: EMAIL,
+    telephone: t.tel,
+    knowsAbout: [
+      "Counselling psychology",
+      "Psychotherapy",
+      "Trauma therapy",
+      "Grief and loss",
+      "Relationship counselling",
+      "Anxiety and depression",
+      "Adolescent and young adult mental health",
+      "Life transitions",
+    ],
+    workLocation: {
+      "@type": "Place",
+      sameAs: `${SITE_URL}/about`,
+      address: ADDRESS_OBJECT,
+    },
+  }));
+
+export const faqPageSchema = (faqs: { q: string; a: string }[] = FAQS) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  name: "Therapy FAQs | Neela Psychological Services",
+  inLanguage: "en-ZA",
+  speakable: { "@type": "SpeakableSpecification", cssSelector: ["summary > span h2"] },
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
 });
 
 export const breadcrumbSchema = (items: { name: string; path: string }[]) => ({

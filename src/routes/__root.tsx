@@ -97,6 +97,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "A space for compassionate, client-centred care in Lynnwood Glen, Pretoria.",
       },
       { name: "theme-color", content: "#c76b8f" },
+      {
+        name: "keywords",
+        content:
+          "neela, neela psychology, neela psychological services, neela psych, niela psychology, psychologist pretoria, therapist lynnwood glen, counselling psychologist pretoria, therapy pretoria, couples therapy pretoria, online therapy south africa",
+      },
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: SHARE_META.ogLocale },

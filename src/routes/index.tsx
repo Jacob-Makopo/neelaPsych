@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl, faqPageSchema } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -40,8 +40,19 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: absoluteUrl("/") },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "keywords",
+        content:
+          "neela, neela psychology, neela psychological services, neela psych, psychologist pretoria, therapist lynnwood glen, counselling psychologist pretoria, therapy pretoria, couples therapy pretoria, online therapy south africa",
+      },
     ],
     links: [{ rel: "canonical", href: absoluteUrl("/") }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(faqPageSchema(FAQS.slice(0, 5))),
+      },
+    ],
   }),
 });
 

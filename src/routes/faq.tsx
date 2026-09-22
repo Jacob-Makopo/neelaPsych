@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site-shell";
 import { FAQS, EMAIL, ADDRESS, CONTACTS } from "@/components/site-data";
-import { OG_IMAGE, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
+import { OG_IMAGE, breadcrumbSchema, faqPageSchema, absoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/faq")({
   component: FaqPage,
@@ -32,18 +32,7 @@ export const Route = createFileRoute("/faq")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          name: "Therapy FAQs | Neela Psychological Services",
-          inLanguage: "en-ZA",
-          speakable: { "@type": "SpeakableSpecification", cssSelector: ["summary > span h2"] },
-          mainEntity: FAQS.map((f) => ({
-            "@type": "Question",
-            name: f.q,
-            acceptedAnswer: { "@type": "Answer", text: f.a },
-          })),
-        }),
+        children: JSON.stringify(faqPageSchema()),
       },
       {
         type: "application/ld+json",

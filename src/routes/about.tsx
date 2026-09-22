@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site-shell";
 import { TEAM } from "@/components/site-data";
-import { OG_IMAGE, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
+import { OG_IMAGE, breadcrumbSchema, personSchema, absoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -30,6 +30,10 @@ export const Route = createFileRoute("/about")({
       {
         type: "application/ld+json",
         children: JSON.stringify(breadcrumbSchema([{ name: "About", path: "/about" }])),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(personSchema()),
       },
     ],
   }),
